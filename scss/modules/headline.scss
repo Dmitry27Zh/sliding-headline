@@ -1,0 +1,21 @@
+[data-headline-wrapper] {
+  display: flex;
+  align-items: center;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+[data-headline] {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+}
+
+[data-headline-factor] {
+  position: relative;
+}
+
+[data-headline-factor="-1"] {
+  left: 10%;
+}
