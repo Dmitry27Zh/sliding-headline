@@ -43,10 +43,6 @@ body {
     margin: 0;
     font-size: 3rem;
 
-    @media (max-width: 1023px) {
-      // font-size: ;
-    }
-
     @media (max-width: 639px) {
       font-size: 1.4rem;
     }

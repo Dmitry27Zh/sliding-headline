@@ -1,4 +1,4 @@
-export const throttle = (elem, eventType, newEventType) => {
+export const throttleEvent = (elem, eventType, newEventType) => {
   let isRunning = false
 
   const eventHandler = () => {

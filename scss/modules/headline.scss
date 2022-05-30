@@ -1,4 +1,5 @@
 [data-headline-wrapper] {
+  position: relative;
   display: flex;
   align-items: center;
   min-height: 100vh;
@@ -14,6 +15,7 @@
 
 [data-headline-factor] {
   position: relative;
+  transition: transform 800ms ease-out;
 }
 
 [data-headline-factor="-1"] {

@@ -9,12 +9,11 @@ const getNextOffset = (el, wrap) => {
   return result;
 };
 
-const initHeadline = (el) => {
+const initHeadlineSliding = (el) => {
   const wrap = el.closest('[data-headline-wrapper]');
   let nextOffset = 0;
   let factor;
   const targets = el.querySelectorAll('[data-headline-factor]');
-  let isAway;
 
   const move = () => {
     targets.forEach((target) => {
@@ -31,18 +30,13 @@ const initHeadline = (el) => {
 
   const observer = new IntersectionObserver((entries) => {
     if (!entries[0].isIntersecting) {
-      window.removeEventListener('optimazedScroll', move);
-      move(1, getMaxOffset());
-      isAway = true;
+      window.removeEventListener('optimizedScroll', move);
+      move();
       return;
     }
 
-    if (isAway) {
-      move(-1, getMaxOffset());
-    }
-
-    window.addEventListener('optimazedScroll', move);
-    isAway = false;
+    move();
+    window.addEventListener('optimizedScroll', move);
   }, {
     threshold: LAST_PART,
   });
@@ -50,4 +44,4 @@ const initHeadline = (el) => {
   observer.observe((el));
 };
 
-export const initHeadlines = () => elms.forEach(initHeadline);
+export const initHeadlinesSliding = () => elms.forEach(initHeadlineSliding);

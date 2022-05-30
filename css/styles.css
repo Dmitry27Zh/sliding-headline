@@ -100,6 +100,7 @@ body {
 }
 
 [data-headline-wrapper] {
+  position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -126,6 +127,10 @@ body {
 
 [data-headline-factor] {
   position: relative;
+  -webkit-transition: -webkit-transform 800ms ease-out;
+  transition: -webkit-transform 800ms ease-out;
+  transition: transform 800ms ease-out;
+  transition: transform 800ms ease-out, -webkit-transform 800ms ease-out;
 }
 
 [data-headline-factor="-1"] {
