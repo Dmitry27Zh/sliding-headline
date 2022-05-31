@@ -2,31 +2,29 @@ const elms = document.querySelectorAll('[data-headline]');
 const LAST_PART = 0.4;
 let getMaxOffset = () => window.innerWidth / 4;
 
-const getTraverseProgress = (el, wrap) => Math.abs(wrap.getBoundingClientRect().top / (el.offsetTop + el.offsetHeight * LAST_PART));
+const getTraverseProgress = (el, wrap) => wrap.getBoundingClientRect().top / (el.offsetTop + el.offsetHeight * LAST_PART);
 
 const getNextOffset = (el, wrap) => {
-  let result = getMaxOffset() * getTraverseProgress(el, wrap);
+  let result = getMaxOffset() * -getTraverseProgress(el, wrap);
   return result;
 };
 
 const initHeadlineSliding = (el) => {
   const wrap = el.closest('[data-headline-wrapper]');
   let nextOffset = 0;
-  let factor;
+  let directionFactor;
   const targets = el.querySelectorAll('[data-headline-factor]');
 
   const move = () => {
     targets.forEach((target) => {
       nextOffset = getNextOffset(el, wrap);
-      factor = target.dataset.headlineFactor;
-      target.style.transform = `translate3d(${nextOffset * factor}px, 0, 0)`;
-      target.style.opacity = 1 - nextOffset / getMaxOffset() - 0.01;
+      directionFactor = target.dataset.headlineFactor;
+      target.style.transform = `translate3d(${nextOffset * directionFactor}px, 0, 0)`;
+      target.style.opacity = 1 - Math.abs(nextOffset) / getMaxOffset() - 0.01;
     });
   };
 
-  if (window.pageYOffset !== 0) {
-    move();
-  }
+  move();
 
   const observer = new IntersectionObserver((entries) => {
     if (!entries[0].isIntersecting) {
