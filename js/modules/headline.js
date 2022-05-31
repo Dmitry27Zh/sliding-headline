@@ -1,26 +1,28 @@
 const elms = document.querySelectorAll('[data-headline]');
 const LAST_PART = 0.4;
-let getMaxOffset = () => window.innerWidth / 4;
+const getMaxOffset = () => window.innerWidth / 4;
 
 const getTraverseProgress = (el, wrap) => wrap.getBoundingClientRect().top / (el.offsetTop + el.offsetHeight * LAST_PART);
 
-const getNextOffset = (el, wrap) => {
-  let result = getMaxOffset() * -getTraverseProgress(el, wrap);
+const getNextOffset = (el, wrap, maxOffset) => {
+  let result = maxOffset * -getTraverseProgress(el, wrap);
   return result;
 };
 
 const initHeadlineSliding = (el) => {
   const wrap = el.closest('[data-headline-wrapper]');
-  let nextOffset = 0;
+  let maxOffset, nextOffset;
   let directionFactor;
   const targets = el.querySelectorAll('[data-headline-factor]');
 
   const move = () => {
+    maxOffset = getMaxOffset()
+    nextOffset = getNextOffset(el, wrap, maxOffset);
+
     targets.forEach((target) => {
-      nextOffset = getNextOffset(el, wrap);
       directionFactor = target.dataset.headlineFactor;
       target.style.transform = `translate3d(${nextOffset * directionFactor}px, 0, 0)`;
-      target.style.opacity = 1 - Math.abs(nextOffset) / getMaxOffset() - 0.01;
+      target.style.opacity = 1 - Math.abs(nextOffset) / maxOffset - 0.01;
     });
   };
 
